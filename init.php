@@ -97,14 +97,14 @@
                 print "<select name="API_type_select" data-dojo-type="dijit/form/Select">
                     <option value="Full-Text RSS" selected="selected">Full-Text RSS</option>
                     <option value="Mercury">Mercury parser</option>
-                    </select>"
+                    </select>";
             }
             elseif ($API_type == "Mercury")
             {
                 print "<select name="API_type_select" data-dojo-type="dijit/form/Select">
                     <option value="Mercury">Mercury parser</option>
                     <option value="Full-Text RSS" selected="selected">Full-Text RSS</option>
-                    </select>"
+                    </select>";
             }
             else
             {
@@ -112,7 +112,7 @@
                     <option value="">-- SELECT API --</option>
                     <option value="Full-Text RSS" selected="selected">Full-Text RSS</option>
                     <option value="Mercury">Mercury parser</option>
-                    </select>"
+                    </select>";
             }
 
 
@@ -218,12 +218,23 @@
         
         $url = $article['link'];
         
-        $api_endpoint = $this
+        $api_address = $this
+            ->host
+            ->get($this, "API_address");
+        
+        $api_type = $this
             ->host
             ->get($this, "API_address");
             
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_URL, rtrim($api_endpoint, '/') . '/parser?url=' . rawurlencode($url));
+        if ($api_type == "Full-Text RSS")
+        {
+            curl_setopt($ch, CURLOPT_URL, rtrim($api_endpoint, '/') . '/extract.php?url=' . rawurlencode($url));
+        }
+        elseif ($api_type == "Mercury")
+        {
+            curl_setopt($ch, CURLOPT_URL, rtrim($api_endpoint, '/') . '/parser?url=' . rawurlencode($url));
+        }
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_ENCODING, "UTF-8");
         
