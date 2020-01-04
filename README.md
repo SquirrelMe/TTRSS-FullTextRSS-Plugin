@@ -1,6 +1,8 @@
-# mercury_fulltext
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FHenryQW%2Fmercury_fulltext.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FHenryQW%2Fmercury_fulltext?ref=badge_shield)
+# TTRSS-FullTextRSS-Plugin
 
+Fork of [mercury_fulltext](https://github.com/HenryQW/mercury_fulltext) replacing [postlight/mercury-parser-api](https://github.com/postlight/mercury-parser-api) with [Full-Text RSS](https://bitbucket.org/fivefilters/full-text-rss).
+
+# OLD:
 
 A Tiny Tiny RSS plugin written for [tt-rss](https://tt-rss.org) as a replacement for the grandpa-old plugin [af_readability](https://git.tt-rss.org/fox/tt-rss/src/master/plugins/af_readability), which doesn't work well for many RSS sites I subscribe to.
 
