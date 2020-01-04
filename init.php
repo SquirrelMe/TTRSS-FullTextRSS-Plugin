@@ -1,13 +1,13 @@
-<?php class mercury_fulltext extends Plugin
+<?php class full_text_grabber extends Plugin
 {
     private $host;
     
     function about()
     {
         return array(
-            2.0,
-            "Try to get fulltext of the article using Self-hosted Mercury Parser API",
-            "https://github.com/HenryQW/mercury_fulltext/"
+            1.0,
+            "Try to get full-text version of the article using (self-hosted) Full-Text RSS or Mercury Parser API",
+            "https://github.com/SquirrelMe/ttrss-fulltext"
         );
     }
     function flags()
@@ -20,8 +20,13 @@
     {
         $this
             ->host
-            ->set($this, "mercury_API", $_POST["mercury_API"]);
-        echo __("Your self-hosted Mercury Parser API Endpoint.");
+            ->set($this, "API_address", $_POST["API_address"]);
+        
+        $this
+            ->host
+            ->set($this, "API_type", $_POST["API_type"]);
+
+        echo __("Your API Endpoint.");
     }
     function init($host)
     {
@@ -43,7 +48,7 @@
         if ($args != "prefFeeds") return;
 
         print "<div dojoType='dijit.layout.AccordionPane' 
-            title=\"<i class='material-icons'>extension</i> ".__('Mercury Fulltext settings (mercury_fulltext)')."\">";
+            title=\"<i class='material-icons'>extension</i> ".__('Full-text grabber settings.')."\">";
 
         if (version_compare(PHP_VERSION, '5.6.0', '<')){
             print_error("This plugin requires PHP version 5.6.");
@@ -73,15 +78,43 @@
 
             print_hidden("op", "pluginhandler");
             print_hidden("method", "save");
-            print_hidden("plugin", "mercury_fulltext");
+            print_hidden("plugin", "full_text_grabber");
 
-            $mercury_API = $this
+            $API_address = $this
                 ->host
-                ->get($this, "mercury_API");
+                ->get($this, "API_address");
 
-            print "<input dojoType='dijit.form.ValidationTextBox' required='1' name='mercury_API' value='$mercury_API'/>";
+            print "<input dojoType='dijit.form.ValidationTextBox' required='1' name='API_address_box' value='$API_address'/>";
+            print "<label for='API_address_box'>" . __(" The (potentially self-hosted) API address (including the port number), eg https://foo.bar.com:1234.") . "</label>";
 
-            print "<label for='mercury_API'>" . __("Your self-hosted Mercury Parser API address (including the port number), eg https://mercury.parser.com:3000.") . "</label>";
+
+            $API_type = $this
+                ->host
+                ->get($this, "API_type");
+
+            if ($API_type == "Full-Text RSS")
+            {
+                print "<select name="API_type_select" data-dojo-type="dijit/form/Select">
+                    <option value="Full-Text RSS" selected="selected">Full-Text RSS</option>
+                    <option value="Mercury">Mercury parser</option>
+                    </select>"
+            }
+            elseif ($API_type == "Mercury")
+            {
+                print "<select name="API_type_select" data-dojo-type="dijit/form/Select">
+                    <option value="Mercury">Mercury parser</option>
+                    <option value="Full-Text RSS" selected="selected">Full-Text RSS</option>
+                    </select>"
+            }
+            else
+            {
+                print "<select name="API_type_select" data-dojo-type="dijit/form/Select">
+                    <option value="">-- SELECT API --</option>
+                    <option value="Full-Text RSS" selected="selected">Full-Text RSS</option>
+                    <option value="Mercury">Mercury parser</option>
+                    </select>"
+            }
+
 
             print "<p>";
             print print_button("submit", __("Save"), "class='alt-primary'");
@@ -132,7 +165,7 @@
 
         print "<fieldset>";
         
-        print "<label class='checkbox'><input dojoType='dijit.form.CheckBox' type='checkbox' id='mercury_fulltext_enabled' name='mercury_fulltext_enabled' $checked>&nbsp;" . __('Get fulltext via Mercury Parser') . "</label>";
+        print "<label class='checkbox'><input dojoType='dijit.form.CheckBox' type='checkbox' id='full_text_grabber_enabled' name='full_text_grabber_enabled' $checked>&nbsp;" . __('Get fulltext via Mercury Parser') . "</label>";
 
         print "</fieldset>";
 
@@ -147,7 +180,7 @@
             
         if (!is_array($enabled_feeds)) $enabled_feeds = array();
         
-        $enable = checkbox_to_sql_bool($_POST["mercury_fulltext_enabled"]);
+        $enable = checkbox_to_sql_bool($_POST["full_text_grabber_enabled"]);
         
         $key = array_search($feed_id, $enabled_feeds);
         
@@ -187,7 +220,7 @@
         
         $api_endpoint = $this
             ->host
-            ->get($this, "mercury_API");
+            ->get($this, "API_address");
             
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_URL, rtrim($api_endpoint, '/') . '/parser?url=' . rawurlencode($url));
