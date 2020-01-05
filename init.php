@@ -229,11 +229,11 @@
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         if ($api_type == "Full-Text RSS")
         {
-            curl_setopt($ch, CURLOPT_URL, rtrim($api_endpoint, '/') . '/extract.php?url=' . rawurlencode($url));
+            curl_setopt($ch, CURLOPT_URL, rtrim($api_address, '/') . '/extract.php?url=' . rawurlencode($url));
         }
         elseif ($api_type == "Mercury")
         {
-            curl_setopt($ch, CURLOPT_URL, rtrim($api_endpoint, '/') . '/parser?url=' . rawurlencode($url));
+            curl_setopt($ch, CURLOPT_URL, rtrim($api_address, '/') . '/parser?url=' . rawurlencode($url));
         }
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_ENCODING, "UTF-8");
