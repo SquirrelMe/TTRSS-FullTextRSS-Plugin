@@ -7,7 +7,7 @@
         return array(
             1.0,
             "Try to get full-text version of the article using (self-hosted) Full-Text RSS or Mercury Parser API",
-            "https://github.com/SquirrelMe/ttrss-fulltext"
+            "https://github.com/SquirrelMe/ttrss-fulltext/"
         );
     }
     function flags()
@@ -24,7 +24,7 @@
         
         $this
             ->host
-            ->set($this, "API_type", $_POST["API_type"]);
+            ->set($this, "API_type", $_POST["API_type_select"]);
 
         echo __("Your API Endpoint.");
     }
@@ -48,7 +48,7 @@
         if ($args != "prefFeeds") return;
 
         print "<div dojoType='dijit.layout.AccordionPane' 
-            title=\"<i class='material-icons'>extension</i> ".__('Full-text grabber settings.')."\">";
+            title=\"<i class='material-icons'>extension</i> ".__('Full-text grabber settings')."\">";
 
         if (version_compare(PHP_VERSION, '5.6.0', '<')){
             print_error("This plugin requires PHP version 5.6.");
@@ -87,7 +87,6 @@
             print "<input dojoType='dijit.form.ValidationTextBox' required='1' name='API_address_box' value='$API_address'/>";
             print "<label for='API_address_box'>" . __(" The (potentially self-hosted) API address (including the port number), eg https://foo.bar.com:1234.") . "</label>";
 
-
             $API_type = $this
                 ->host
                 ->get($this, "API_type");
@@ -114,7 +113,6 @@
                     <option value='Mercury'>Mercury parser</option>
                     </select>";
             }
-
 
             print "<p>";
             print print_button("submit", __("Save"), "class='alt-primary'");
@@ -165,7 +163,7 @@
 
         print "<fieldset>";
         
-        print "<label class='checkbox'><input dojoType='dijit.form.CheckBox' type='checkbox' id='full_text_grabber_enabled' name='full_text_grabber_enabled' $checked>&nbsp;" . __('Get fulltext via Mercury Parser') . "</label>";
+        print "<label class='checkbox'><input dojoType='dijit.form.CheckBox' type='checkbox' id='full_text_grabber_enabled' name='full_text_grabber_enabled' $checked>&nbsp;" . __('Get fulltext via API') . "</label>";
 
         print "</fieldset>";
 
