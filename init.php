@@ -20,7 +20,7 @@
     {
         $this
             ->host
-            ->set($this, "API_address", $_POST["API_address"]);
+            ->set($this, "API_address", $_POST["API_address_box"]);
         
         /* $this
             ->host
@@ -150,7 +150,7 @@
 
     function hook_prefs_edit_feed($feed_id)
     {
-        print "<header>".__("Mercury Fulltext")."</header>";
+        print "<header>".__("Full-text grabber")."</header>";
         print "<section>";
         
         $enabled_feeds = $this
@@ -220,9 +220,9 @@
             ->host
             ->get($this, "API_address");
         
-        $api_type = $this
+        /* $api_type = $this
             ->host
-            ->get($this, "API_type");
+            ->get($this, "API_type"); */
             
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         /* if ($api_type == "Full-Text RSS")
