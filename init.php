@@ -89,7 +89,7 @@
                 ->get($this, "API_address");
 
             print "<input dojoType='dijit.form.ValidationTextBox' required='1' name='API_address_box' value='$API_address'/>";
-            print "<label for='API_address_box'>" . __(" The (potentially self-hosted) API address (including the port number), eg https://foo.bar.com:1234.") . "</label>";
+            print "<label for='API_address_box'>" . __(" The (potentially self-hosted) API address, eg https://foo.bar.com:1234.") . "</label>";
 
             print "<br>";
 
@@ -126,7 +126,7 @@
                     <option value='Mercury'>Mercury parser</option>
                     </select>"; */
 
-            print "<br>"
+            print "<br>";
 
             $API_key = $this
                 ->host
