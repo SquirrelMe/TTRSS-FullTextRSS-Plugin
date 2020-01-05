@@ -7,7 +7,7 @@
         return array(
             1.0,
             "Try to get full-text version of the article using (self-hosted) Full-Text RSS or Mercury Parser API",
-            "https://github.com/SquirrelMe/ttrss-fulltext/"
+            "https://github.com/SquirrelMe/full_text_grabber/"
         );
     }
     function flags()
@@ -22,10 +22,9 @@
             ->host
             ->set($this, "API_address", $_POST["API_address_box"]);
         
-        /* $this
+        $this
             ->host
             ->set($this, "API_type", $_POST["API_type_select"]);
- */
         echo __("Your API Endpoint.");
     }
     function init($host)
@@ -113,6 +112,12 @@
                     <option value='Mercury'>Mercury parser</option>
                     </select>";
             } */
+
+            /* print "<select name='API_type_select' data-dojo-type='dijit/form/Select'>
+                    <option value=''>-- SELECT API --</option>
+                    <option value='Full-Text RSS'>Full-Text RSS</option>
+                    <option value='Mercury'>Mercury parser</option>
+                    </select>"; */
 
             print "<p>";
             print print_button("submit", __("Save"), "class='alt-primary'");
@@ -220,19 +225,19 @@
             ->host
             ->get($this, "API_address");
         
-        /* $api_type = $this
+        $api_type = $this
             ->host
-            ->get($this, "API_type"); */
+            ->get($this, "API_type");
             
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        /* if ($api_type == "Full-Text RSS")
+        if ($api_type == "Full-Text RSS")
         {
             curl_setopt($ch, CURLOPT_URL, rtrim($api_address, '/') . '/extract.php?url=' . rawurlencode($url));
         }
         elseif ($api_type == "Mercury")
-        { */
+        {
             curl_setopt($ch, CURLOPT_URL, rtrim($api_address, '/') . '/parser?url=' . rawurlencode($url));
-        /* } */
+        }
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_ENCODING, "UTF-8");
         
