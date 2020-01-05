@@ -25,7 +25,7 @@
         $this
             ->host
             ->set($this, "API_type", $_POST["API_type_select"]);
-        echo __("API = " . $this->host->get($this, "API_type") );
+        echo __("SAVED. Using API = " . $this->host->get($this, "API_type") );
     }
     function init($host)
     {
@@ -88,7 +88,7 @@
 
             print "<br>";
 
-            /* $API_type = $this
+            $API_type = $this
                 ->host
                 ->get($this, "API_type");
 
@@ -113,13 +113,13 @@
                     <option value='Full-Text RSS'>Full-Text RSS</option>
                     <option value='Mercury'>Mercury parser</option>
                     </select>";
-            } */
+            }
 
-            print "<select name='API_type_select' data-dojo-type='dijit/form/Select'>
+            /* print "<select name='API_type_select' data-dojo-type='dijit/form/Select'>
                     <option value=''>-- SELECT API --</option>
                     <option value='Full-Text RSS'>Full-Text RSS</option>
                     <option value='Mercury'>Mercury parser</option>
-                    </select>";
+                    </select>"; */
 
             print "<p>";
             print print_button("submit", __("Save"), "class='alt-primary'");
