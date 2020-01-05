@@ -95,7 +95,7 @@
             if ($API_type == "Full-Text RSS")
             {
                 print "<select name='API_type_select' data-dojo-type='dijit/form/Select'>
-                    <option value='Full-Text RSS' selected='selected'>Full-Text RSS</option>
+                    <option value='Full-Text RSS'>Full-Text RSS</option>
                     <option value='Mercury'>Mercury parser</option>
                     </select>";
             }
@@ -103,14 +103,14 @@
             {
                 print "<select name='API_type_select' data-dojo-type='dijit/form/Select'>
                     <option value='Mercury'>Mercury parser</option>
-                    <option value='Full-Text RSS' selected='selected'>Full-Text RSS</option>
+                    <option value='Full-Text RSS'>Full-Text RSS</option>
                     </select>";
             }
             else
             {
                 print "<select name='API_type_select' data-dojo-type='dijit/form/Select'>
                     <option value=''>-- SELECT API --</option>
-                    <option value='Full-Text RSS' selected='selected'>Full-Text RSS</option>
+                    <option value='Full-Text RSS'>Full-Text RSS</option>
                     <option value='Mercury'>Mercury parser</option>
                     </select>";
             }
@@ -224,7 +224,7 @@
         
         $api_type = $this
             ->host
-            ->get($this, "API_address");
+            ->get($this, "API_type");
             
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         if ($api_type == "Full-Text RSS")
