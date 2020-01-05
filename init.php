@@ -1,4 +1,4 @@
-<?php class full_text_grabber extends Plugin
+<?php class full_text extends Plugin
 {
     private $host;
     
@@ -25,7 +25,7 @@
         $this
             ->host
             ->set($this, "API_type", $_POST["API_type_select"]);
-        echo __("Your API Endpoint.");
+        echo __("API = " . $this->host->get($this, "API_type") );
     }
     function init($host)
     {
@@ -77,7 +77,7 @@
 
             print_hidden("op", "pluginhandler");
             print_hidden("method", "save");
-            print_hidden("plugin", "full_text_grabber");
+            print_hidden("plugin", "full_text");
 
             $API_address = $this
                 ->host
@@ -85,6 +85,8 @@
 
             print "<input dojoType='dijit.form.ValidationTextBox' required='1' name='API_address_box' value='$API_address'/>";
             print "<label for='API_address_box'>" . __(" The (potentially self-hosted) API address (including the port number), eg https://foo.bar.com:1234.") . "</label>";
+
+            print "<br>";
 
             /* $API_type = $this
                 ->host
@@ -113,11 +115,11 @@
                     </select>";
             } */
 
-            /* print "<select name='API_type_select' data-dojo-type='dijit/form/Select'>
+            print "<select name='API_type_select' data-dojo-type='dijit/form/Select'>
                     <option value=''>-- SELECT API --</option>
                     <option value='Full-Text RSS'>Full-Text RSS</option>
                     <option value='Mercury'>Mercury parser</option>
-                    </select>"; */
+                    </select>";
 
             print "<p>";
             print print_button("submit", __("Save"), "class='alt-primary'");
