@@ -25,6 +25,11 @@
         $this
             ->host
             ->set($this, "API_type", $_POST["API_type_select"]);
+
+        $this
+            ->host
+            ->set($this, "API_key", $_POST["API_key_box"]);
+
         echo __("SAVED. Using API = " . $this->host->get($this, "API_type") );
     }
     function init($host)
@@ -120,6 +125,16 @@
                     <option value='Full-Text RSS'>Full-Text RSS</option>
                     <option value='Mercury'>Mercury parser</option>
                     </select>"; */
+
+            print "<br>"
+
+            $API_address = $this
+                ->host
+                ->get($this, "API_key");
+
+            print "<input dojoType='dijit.form.ValidationTextBox' required='0' name='API_key_box' value='$API_key'/>";
+            print "<label for='API_key_box'>" . __("optional: Full-Text API key.") . "</label>";
+
 
             print "<p>";
             print print_button("submit", __("Save"), "class='alt-primary'");
@@ -230,11 +245,23 @@
         $api_type = $this
             ->host
             ->get($this, "API_type");
+
+        $api_key = $this
+            ->host
+            ->get($this, "API_key");
             
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         if ($api_type == "Full-Text RSS")
         {
-            curl_setopt($ch, CURLOPT_URL, rtrim($api_address, '/') . '/extract.php?url=' . rawurlencode($url));
+            if ($api_key == "")
+            {
+                curl_setopt($ch, CURLOPT_URL, rtrim($api_address, '/') . '/extract.php?url=' . rawurlencode($url));
+            }
+            else
+            {
+                curl_setopt($ch, CURLOPT_URL, rtrim($api_address, '/') . '/extract.php?key=' . $api_key . '?url=' . rawurlencode($url));
+            }
+            
         }
         elseif ($api_type == "Mercury")
         {
