@@ -22,10 +22,10 @@
             ->host
             ->set($this, "API_address", $_POST["API_address"]);
         
-        $this
+        /* $this
             ->host
             ->set($this, "API_type", $_POST["API_type_select"]);
-
+ */
         echo __("Your API Endpoint.");
     }
     function init($host)
@@ -87,7 +87,7 @@
             print "<input dojoType='dijit.form.ValidationTextBox' required='1' name='API_address_box' value='$API_address'/>";
             print "<label for='API_address_box'>" . __(" The (potentially self-hosted) API address (including the port number), eg https://foo.bar.com:1234.") . "</label>";
 
-            $API_type = $this
+            /* $API_type = $this
                 ->host
                 ->get($this, "API_type");
 
@@ -112,7 +112,7 @@
                     <option value='Full-Text RSS'>Full-Text RSS</option>
                     <option value='Mercury'>Mercury parser</option>
                     </select>";
-            }
+            } */
 
             print "<p>";
             print print_button("submit", __("Save"), "class='alt-primary'");
@@ -225,14 +225,14 @@
             ->get($this, "API_type");
             
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        if ($api_type == "Full-Text RSS")
+        /* if ($api_type == "Full-Text RSS")
         {
             curl_setopt($ch, CURLOPT_URL, rtrim($api_address, '/') . '/extract.php?url=' . rawurlencode($url));
         }
         elseif ($api_type == "Mercury")
-        {
+        { */
             curl_setopt($ch, CURLOPT_URL, rtrim($api_address, '/') . '/parser?url=' . rawurlencode($url));
-        }
+        /* } */
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_ENCODING, "UTF-8");
         
