@@ -259,7 +259,7 @@
             }
             else
             {
-                curl_setopt($ch, CURLOPT_URL, rtrim($api_address, '/') . '/extract.php?key=' . $api_key . '?url=' . rawurlencode($url));
+                curl_setopt($ch, CURLOPT_URL, rtrim($api_address, '/') . '/extract.php?key=' . $api_key . '&url=' . rawurlencode($url));
             }
             
         }
