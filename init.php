@@ -128,7 +128,7 @@
 
             print "<br>"
 
-            $API_address = $this
+            $API_key = $this
                 ->host
                 ->get($this, "API_key");
 
