@@ -94,24 +94,24 @@
 
             if ($API_type == "Full-Text RSS")
             {
-                print "<select name="API_type_select" data-dojo-type="dijit/form/Select">
-                    <option value="Full-Text RSS" selected="selected">Full-Text RSS</option>
-                    <option value="Mercury">Mercury parser</option>
+                print "<select name='API_type_select' data-dojo-type='dijit/form/Select'>
+                    <option value='Full-Text RSS' selected='selected'>Full-Text RSS</option>
+                    <option value='Mercury'>Mercury parser</option>
                     </select>";
             }
             elseif ($API_type == "Mercury")
             {
-                print "<select name="API_type_select" data-dojo-type="dijit/form/Select">
-                    <option value="Mercury">Mercury parser</option>
-                    <option value="Full-Text RSS" selected="selected">Full-Text RSS</option>
+                print "<select name='API_type_select' data-dojo-type='dijit/form/Select'>
+                    <option value='Mercury'>Mercury parser</option>
+                    <option value='Full-Text RSS' selected='selected'>Full-Text RSS</option>
                     </select>";
             }
             else
             {
-                print "<select name="API_type_select" data-dojo-type="dijit/form/Select">
-                    <option value="">-- SELECT API --</option>
-                    <option value="Full-Text RSS" selected="selected">Full-Text RSS</option>
-                    <option value="Mercury">Mercury parser</option>
+                print "<select name='API_type_select' data-dojo-type='dijit/form/Select'>
+                    <option value=''>-- SELECT API --</option>
+                    <option value='Full-Text RSS' selected='selected'>Full-Text RSS</option>
+                    <option value='Mercury'>Mercury parser</option>
                     </select>";
             }
 
